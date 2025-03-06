@@ -47,7 +47,7 @@
                         </select>
                     </div>
                     <div class="1/3">&nbsp;</div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 col-span-2 gap-4">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 col-span-2 gap-4 m-0 p-2 lg:p-0 lg:m-4">
                         <label class="text-lg font-bold text-gray-800" for="address_1">Billing Address:</label>
                         <div class="grid gap-4">
                             <input required type="text" id="address_1" name="address_1" value="{{ isset($customer) ? $customer->address_1 : old('address_1') }}" class="@error('address_1') border-2 border-y-red-600 @enderror">

@@ -24,7 +24,7 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN php artisan key:generate
-RUN php artisan migrate:fresh
+RUN php artisan migrate
 
 # Set up apache
 RUN a2enmod rewrite
