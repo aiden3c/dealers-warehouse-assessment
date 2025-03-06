@@ -38,6 +38,7 @@ RUN chown -R www-data:www-data /var/www/html
 
 # Build vue assets
 RUN ~/.bun/bin/bun install vue @vitejs/plugin-vue
+RUN ~/.bun/bin/bun install tailwindcss @tailwindcss/vite
 RUN ~/.bun/bin/bun install
 RUN ~/.bun/bin/bun run build
 

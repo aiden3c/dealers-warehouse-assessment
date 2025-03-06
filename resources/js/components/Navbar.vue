@@ -5,7 +5,7 @@
         <a href="/" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
-        <a href="/clients" class="nav-link">Clients</a>
+        <a href="/customers" class="nav-link">Customers</a>
       </li>
     </ul>
   </nav>
