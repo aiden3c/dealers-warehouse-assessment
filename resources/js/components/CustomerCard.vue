@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-24 p-2 m-2 rounded-md border-2 border-gray-300">
+    <div class="w-full h36 lg:h-24 p-2 m-2 rounded-md border-2 border-gray-300">
         <a :href="'/customers/' + JSON.parse(customer).account_number" class="grid grid-cols-2">
             <div class="w-full">
                 <div>
@@ -24,8 +24,8 @@
                 <div class="text-sm text-gray-500">
                     {{ JSON.parse(customer).city }}, {{ JSON.parse(customer).state }} {{ JSON.parse(customer).zip }}
                 </div>
-                <div class="text-sm text-gray-500">
-                    {{ JSON.parse(customer).availability }}
+                <div class="text-xs text-gray-500">
+                    {{ JSON.parse(JSON.parse(customer).availability).toString().split(",").join(", ").toUpperCase() }}
                 </div>
             </div>
         </a>

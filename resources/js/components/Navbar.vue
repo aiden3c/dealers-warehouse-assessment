@@ -2,7 +2,7 @@
   <nav class="navbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a href="/" class="nav-link">Home</a>
+        <a href="/" class="nav-link">Add Customer</a>
       </li>
       <li class="nav-item">
         <a href="/customers" class="nav-link">Customers</a>

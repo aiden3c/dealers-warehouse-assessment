@@ -14,13 +14,15 @@
             @yield('content')
         </div>
         <div class="m-4">
-            <div class="text-4xl font-bold grid grid-cols-2">Customers</div>
+            <div class="text-4xl font-bold mb-4">Customers</div>
+            <div class="grid-cols-1 lg:grid grid-cols-2 gap-4">
                 @foreach ($customers as $customer)
                     <?php
                         $customer->business_type = $business_types[$customer->business_type];
                     ?>
                     <customer-card customer='{!! json_encode($customer) !!}'></customer-card>
                 @endforeach
+            </div>
         </div>
     </div>
 </body>

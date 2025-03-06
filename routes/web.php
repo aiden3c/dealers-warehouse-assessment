@@ -11,3 +11,5 @@ Route::get('/customers/{account_number}', [CustomerController::class, 'show']);
 
 Route::post('/', [CustomerController::class, 'submit']);
 Route::post('/customers/{account_number}', [CustomerController::class, 'update']);
+
+Route::get('/customers/{account_number}/delete', [CustomerController::class, 'delete']);

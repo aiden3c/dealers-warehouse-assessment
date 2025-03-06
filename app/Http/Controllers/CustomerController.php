@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class CustomerController extends Controller
 {
-    private function uuidv4() //Credit to https://stackoverflow.com/a/15875555 for compliant algorithm
+    private function uuidv4(): string //Credit to https://stackoverflow.com/a/15875555 for compliant algorithm
     {
         $data = random_bytes(16);
 
@@ -18,15 +19,23 @@ class CustomerController extends Controller
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 
-    public function list()
+    public function list(): View
     {
-        $customers = DB::table('customers')->get();
+        $customers = DB::table('customers')->orderBy('id', 'DESC')->get();
+        // This is used to display easier names for business types
         $business_types = ['corporation' => "Corporation", 'llc' => "LLC", 'sole' => "Sole Proprietor", 'other' => "Other"];
         return view('customers', ['customers' => $customers, 'business_types' => $business_types]);
     }
 
-    public function validate(Request $request) {
-        $validated = $request->validate([
+    public function delete(string $account_number): RedirectResponse
+    {
+        DB::table('customers')->where('account_number', $account_number)->delete();
+        return redirect('/customers');
+    }
+
+    public function validate(Request $request): array
+    {
+        return $request->validate([
             'customerName' => 'required|string|max:255',
             'address_1' => 'required|string|max:255',
             'city' => 'required|string|max:255',
@@ -38,7 +47,8 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function update(Request $request): RedirectResponse {
+    public function update(Request $request): RedirectResponse
+    {
         $validated = $this->validate($request);
         $days = [];
         foreach($request->all() as $key => $value) {
@@ -64,8 +74,8 @@ class CustomerController extends Controller
 
     public function submit(Request $request): RedirectResponse
     {
-
-        if ($this->validate($request)) {
+        $validated = $this->validate($request);
+        if ($validated) {
             $account_number = $this->uuidv4();
             $days = [];
             foreach($request->all() as $key => $value) {
@@ -88,12 +98,12 @@ class CustomerController extends Controller
                 'business_type' => $request->input('business_type'),
                 'availability' => json_encode($days),
             ]);
+            return redirect('/customers');
         }
-
-        return redirect('/customers');
+        return redirect('/')->withErrors($validated);
     }
 
-    public function show($account_number)
+    public function show(string $account_number): View
     {
         $customer = DB::table('customers')->where('account_number', $account_number)->first();
         return view('addOrEdit', ['customer' => $customer]);
